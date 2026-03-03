@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OptiLight IPL + Radiofrequency | Dry Eye Center of NC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --navy:       #0d1b2a;
+  --deep-blue:  #1a2f4a;
+  --gold:       #c9a84c;
+  --gold-light: #e8c97a;
+  --teal:       #3d8fa0;
+  --teal-light: #5ab8cc;
+  --cream:      #f5f0e8;
+  --muted:      #8a9bb0;
+  --white:      #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--navy);
+  color: var(--cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════ */
+h1, h2, h3, blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+h1 { font-size: clamp(2.6rem, 8vw, 5.8rem); }
+h2 { font-size: clamp(1.9rem, 5vw, 3.4rem); line-height: 1.15; }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400; }
+
+em { font-style: italic; color: var(--gold-light); }
+
+.label {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 16px;
+}
+
+p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.75);
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT UTILITIES
+═══════════════════════════════════════════ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section { padding: 90px 24px; }
+.section--dark { background: rgba(26,47,74,0.45); }
+.section--darker { background: rgba(13,27,42,0.85); }
+
+.divider {
+  height: 1px;
+  margin: 0 24px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(201,168,76,0.3),
+    rgba(90,184,204,0.3),
+    transparent);
+}
+
+.center { text-align: center; }
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  background: rgba(13,27,42,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.nav-brand span { color: var(--gold-light); }
+
+.nav-cta {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  padding: 10px 24px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.nav-cta:hover { opacity: 0.88; }
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 24px 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* radial glow layers */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 50%, rgba(61,143,160,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 30%, rgba(201,168,76,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* animated rings — pure CSS */
+.ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(90,184,204,0.12);
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.ring-1 { width: 340px; height: 340px; animation-delay: 0s; }
+.ring-2 { width: 580px; height: 580px; animation-delay: 1.8s; }
+.ring-3 { width: 820px; height: 820px; animation-delay: 3.6s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; transform: translate(-50%,-50%) scale(1); }
+  50%       { opacity: 0.08; transform: translate(-50%,-50%) scale(1.05); }
+}
+
+.hero-badge {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  border: 1px solid rgba(90,184,204,0.35);
+  padding: 8px 22px;
+  border-radius: 100px;
+  margin-bottom: 36px;
+  animation: fadeUp 1s ease both;
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  animation: fadeUp 1s 0.2s ease both;
+}
+
+.hero-sub {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  margin-top: 28px;
+  font-size: 1rem;
+  animation: fadeUp 1s 0.4s ease both;
+}
+
+.hero-btns {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 48px;
+  animation: fadeUp 1s 0.6s ease both;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  padding: 15px 38px;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(201,168,76,0.35);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cream);
+  padding: 15px 38px;
+  border-radius: 3px;
+  border: 1px solid rgba(245,240,232,0.22);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.btn-ghost:hover {
+  background: rgba(245,240,232,0.06);
+  border-color: rgba(245,240,232,0.45);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   INTRO / STATS
+═══════════════════════════════════════════ */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.intro-text h2 { margin-bottom: 24px; }
+.intro-text p + p { margin-top: 14px; }
+
+.stat-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--teal);
+  padding: 26px 28px;
+  border-radius: 3px;
+  transition: transform 0.25s, background 0.25s;
+}
+
+.stat-card:hover { background: rgba(255,255,255,0.06); transform: translateX(4px); }
+.stat-card.gold  { border-left-color: var(--gold); }
+.stat-card.teal2 { border-left-color: var(--teal-light); }
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-lbl {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* ═══════════════════════════════════════════
+   MODALITIES (IPL + RF)
+═══════════════════════════════════════════ */
+.section--dark .center { margin-bottom: 56px; }
+
+.modalities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mod {
+  padding: 52px 44px;
+  border-radius: 3px;
+}
+
+.mod.ipl {
+  background: rgba(61,143,160,0.10);
+  border: 1px solid rgba(61,143,160,0.22);
+}
+
+.mod.rf {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.18);
+}
+
+.mod-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 24px;
+}
+
+.mod.ipl .mod-icon { background: rgba(61,143,160,0.2); }
+.mod.rf  .mod-icon { background: rgba(201,168,76,0.18); }
+
+.mod.ipl h3 { color: var(--teal-light); margin-bottom: 14px; }
+.mod.rf  h3 { color: var(--gold-light);  margin-bottom: 14px; }
+
+.mod p { font-size: 0.9rem; line-height: 1.75; }
+
+.mod-list {
+  list-style: none;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.mod-list li {
+  font-size: 0.84rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.7);
+  padding-left: 18px;
+  position: relative;
+}
+
+.mod.ipl .mod-list li::before { content: '→'; position: absolute; left: 0; color: var(--teal); }
+.mod.rf  .mod-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   SYNERGY BENEFITS GRID
+═══════════════════════════════════════════ */
+.synergy-intro {
+  max-width: 700px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.synergy-intro h2 { margin-bottom: 20px; }
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-top: 2px solid var(--gold);
+  padding: 36px 28px;
+  border-radius: 3px;
+  transition: transform 0.28s, background 0.28s;
+}
+
+.benefit-card:nth-child(3n+2) {
+  border-top-color: var(--teal);
+  margin-top: 22px;
+}
+
+.benefit-card:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-4px);
+}
+
+.card-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: rgba(201,168,76,0.22);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.benefit-card:nth-child(3n+2) .card-num { color: rgba(61,143,160,0.22); }
+
+.benefit-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.benefit-card p { font-size: 0.84rem; line-height: 1.7; }
+
+/* ═══════════════════════════════════════════
+   COMPARISON TABLE
+═══════════════════════════════════════════ */
+.table-wrap {
+  max-width: 1000px;
+  margin: 50px auto 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  min-width: 580px;
+}
+
+thead th {
+  padding: 18px 24px;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+thead th:first-child { text-align: left; color: var(--muted); }
+
+thead th:nth-child(2) {
+  background: rgba(255,255,255,0.04);
+  color: var(--muted);
+  border-radius: 3px 3px 0 0;
+}
+
+thead th:nth-child(3) {
+  background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(61,143,160,0.1));
+  color: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+}
+
+tbody td {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-weight: 300;
+  vertical-align: middle;
+}
+
+tbody td:first-child { color: rgba(245,240,232,0.6); }
+
+tbody td:nth-child(2) {
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  color: rgba(245,240,232,0.45);
+}
+
+tbody td:nth-child(3) {
+  text-align: center;
+  background: rgba(201,168,76,0.05);
+  border-left: 1px solid rgba(201,168,76,0.15);
+  border-right: 1px solid rgba(201,168,76,0.15);
+  color: var(--cream);
+  font-weight: 400;
+}
+
+.ck { color: #4caf8a; font-size: 1rem; }
+.cx { color: rgba(255,255,255,0.2); font-size: 1rem; }
+
+/* ═══════════════════════════════════════════
+   IDEAL CANDIDATE
+═══════════════════════════════════════════ */
+.candidate-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 70px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 56px auto 0;
+}
+
+.eye-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-ring {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.eye-ring::before {
+  content: '';
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(61,143,160,0.14) 0%,
+    rgba(201,168,76,0.07) 60%,
+    transparent 100%);
+}
+
+.eye-ring::after {
+  content: '👁';
+  font-size: 4.5rem;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 24px rgba(90,184,204,0.4));
+}
+
+.orbit {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  top: 50%;
+  left: 50%;
+  margin: -7px 0 0 -7px;
+  animation: orbit 9s linear infinite;
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(140px); }
+  to   { transform: rotate(360deg) translateX(140px); }
+}
+
+.candidate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.c-item {
+  display: flex;
+  gap: 14px;
+  padding: 18px 22px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 3px;
+  transition: background 0.25s;
+}
+
+.c-item:hover { background: rgba(255,255,255,0.05); }
+
+.c-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(61,143,160,0.3), rgba(201,168,76,0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.c-item h5 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 3px;
+}
+
+.c-item p { font-size: 0.8rem; color: var(--muted); }
+
+/* ═══════════════════════════════════════════
+   PROCESS STEPS
+═══════════════════════════════════════════ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 1100px;
+  margin: 60px auto 0;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+}
+
+.step {
+  padding: 0 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--teal-light);
+  transition: transform 0.25s;
+}
+
+.step:nth-child(2) .step-circle { border-color: #5a9fac; color: #5a9fac; }
+.step:nth-child(3) .step-circle { border-color: #a09055; color: #baa560; }
+.step:nth-child(4) .step-circle { border-color: var(--gold); color: var(--gold-light); }
+
+.step:hover .step-circle { transform: scale(1.08); }
+
+.step h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.step p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+/* ═══════════════════════════════════════════
+   WHY US
+═══════════════════════════════════════════ */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 72px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.why-content h2 { margin-bottom: 22px; }
+.why-content > p { margin-bottom: 28px; }
+
+.pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pillar {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px;
+  border-left: 2px solid var(--gold);
+  background: rgba(201,168,76,0.05);
+  border-radius: 0 3px 3px 0;
+}
+
+.pillar-ico { font-size: 1.1rem; padding-top: 2px; }
+
+.pillar strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--gold-light);
+  margin-bottom: 3px;
+}
+
+.pillar p { font-size: 0.8rem; color: var(--muted); margin: 0; }
+
+.awards { display: flex; flex-direction: column; gap: 16px; }
+
+.award {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 3px;
+  padding: 28px;
+  text-align: center;
+  transition: background 0.25s;
+}
+
+.award:hover { background: rgba(255,255,255,0.05); }
+
+.award .award-ico { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+
+.award strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--gold-light);
+  margin-bottom: 5px;
+}
+
+.award p { font-size: 0.78rem; color: var(--muted); margin: 0; }
+
+/* ═══════════════════════════════════════════
+   TESTIMONIAL
+═══════════════════════════════════════════ */
+.testimonial-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 60px 70px;
+  position: relative;
+}
+
+.testimonial-wrap::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9rem;
+  color: rgba(201,168,76,0.1);
+  position: absolute;
+  top: -18px;
+  left: 28px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonial-wrap blockquote {
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.55;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-wrap cite {
+  display: block;
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  font-weight: 500;
+  margin-top: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   CTA SECTION
+═══════════════════════════════════════════ */
+.cta-section {
+  padding: 120px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 60%,
+    rgba(201,168,76,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section h2 { position: relative; z-index: 1; }
+
+.cta-section p {
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 22px auto 44px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-section .hero-btns { position: relative; z-index: 1; }
+
+.cta-note {
+  margin-top: 20px;
+  font-size: 0.76rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--cream);
+}
+
+.footer-brand span { color: var(--gold-light); }
+
+footer p { font-size: 0.76rem; color: var(--muted); margin: 0; }
+
+.footer-copy { font-size: 0.7rem !important; color: rgba(138,155,176,0.5) !important; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — TABLET ≤ 900px
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+
+  .section { padding: 70px 20px; }
+
+  .intro-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .modalities {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .mod { padding: 40px 30px; }
+
+  .benefits-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .benefit-card:nth-child(3n+2) { margin-top: 0; }
+
+  .candidate-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .eye-visual { display: none; }
+
+  .steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .steps::before { display: none; }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .testimonial-wrap {
+    padding: 44px 36px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — MOBILE ≤ 580px
+═══════════════════════════════════════════ */
+@media (max-width: 580px) {
+
+  nav { padding: 14px 18px; }
+  .nav-brand { font-size: 1rem; }
+  .nav-cta { padding: 9px 16px; font-size: 0.68rem; }
+
+  .hero { padding: 130px 20px 80px; }
+  .ring-1 { width: 240px; height: 240px; }
+  .ring-2 { width: 380px; height: 380px; }
+  .ring-3 { width: 520px; height: 520px; }
+
+  .hero-badge { font-size: 0.6rem; padding: 7px 16px; }
+
+  .hero-btns { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-ghost { width: 100%; max-width: 320px; text-align: center; }
+
+  .section { padding: 56px 18px; }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .step-circle { width: 58px; height: 58px; font-size: 1.3rem; }
+
+  .table-wrap { margin-top: 32px; }
+
+  .mod { padding: 30px 22px; }
+
+  .testimonial-wrap {
+    padding: 36px 24px;
+  }
+
+  .testimonial-wrap::before { font-size: 6rem; top: -10px; left: 14px; }
+
+  .cta-section { padding: 80px 20px; }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a href="#" class="nav-brand">Dry Eye Center <span>of NC</span></a>
+  <a href="#cta" class="nav-cta">Book Consultation</a>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+  <div class="ring ring-3"></div>
+
+  <div class="hero-badge">Dry Eye Center of NC · Advanced Dry Eye Therapy</div>
+
+  <h1>
+    The Future of<br>
+    Dry Eye Care Is<br>
+    <em>Finally Here.</em>
+  </h1>
+
+  <p class="hero-sub">
+    Introducing our OptiLight IPL + Radiofrequency Combination Protocol — the most clinically advanced, dual-energy treatment available for evaporative dry eye disease.
+  </p>
+
+  <div class="hero-btns">
+    <a href="#cta" class="btn-primary">Schedule a Consultation</a>
+    <a href="#science" class="btn-ghost">Learn the Science</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ INTRO ══════════════ -->
+<section class="section">
+  <div class="intro-grid">
+    <div class="intro-text">
+      <span class="label">The Dry Eye Crisis</span>
+      <h2>Your eyes deserve more than <em>temporary relief.</em></h2>
+      <p>Over 16 million Americans suffer from chronic dry eye disease — yet most are still relying on artificial tears that mask symptoms without ever treating the root cause. The real culprit in up to 86% of cases? Dysfunctional Meibomian glands.</p>
+      <p style="margin-top:14px;">When these tiny oil-producing glands become blocked, inflamed, or atrophied, your tear film destabilizes — and the cycle of burning, redness, and blurred vision begins. At Dry Eye Center of NC, we go deeper. We treat the disease, not just the symptoms.</p>
+    </div>
+
+    <div class="stat-stack">
+      <div class="stat-card">
+        <div class="stat-num">86%</div>
+        <div class="stat-lbl">of dry eye cases are driven by Meibomian Gland Dysfunction — a glandular disease requiring in-office treatment, not more drops</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">87%</div>
+        <div class="stat-lbl">of patients reported significant symptom improvement after completing an OptiLight IPL treatment series in clinical trials</div>
+      </div>
+      <div class="stat-card teal2">
+        <div class="stat-num">2×</div>
+        <div class="stat-lbl">combination IPL + RF therapy demonstrates superior gland function restoration compared to either treatment alone</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ SCIENCE ══════════════ -->
+<section class="section section--dark" id="science">
+  <div class="container">
+    <div class="center">
+      <span class="label">Dual-Energy Technology</span>
+      <h2>Two Groundbreaking Technologies.<br><em>One Powerful Protocol.</em></h2>
+    </div>
+
+    <div class="modalities">
+
+      <div class="mod ipl">
+        <div class="mod-icon">💡</div>
+        <h3>OptiLight IPL</h3>
+        <p>Lumenis OptiLight is the <strong style="color:var(--cream);font-weight:500;">first and only FDA-approved</strong> Intense Pulsed Light therapy specifically indicated for dry eye disease due to MGD. Precisely calibrated light pulses target the inflammatory cascade driving gland dysfunction — reducing abnormal blood vessel growth, eliminating Demodex mites, and thermally activating clogged glands.</p>
+        <ul class="mod-list">
+          <li>Targets inflammatory mediators at the source</li>
+          <li>Reduces telangiectasia feeding eyelid inflammation</li>
+          <li>Eliminates Demodex mite overpopulation — a hidden MGD trigger</li>
+          <li>Stimulates healthy lipid secretion from glands</li>
+          <li>FDA-approved with robust clinical trial evidence</li>
+          <li>Proven improvement in TBUT, OSDI scores &amp; meibum quality</li>
+        </ul>
+      </div>
+
+      <div class="mod rf">
+        <div class="mod-icon">⚡</div>
+        <h3>Radiofrequency (RF)</h3>
+        <p>Our advanced Radiofrequency technology delivers precisely controlled thermal energy into eyelid tissue, producing deep collagen remodeling and powerful gland expression. RF elevates tissue temperature to therapeutically melt and mobilize inspissated (hardened) meibum — clearing blocked glands and restoring oil flow to your tear film.</p>
+        <ul class="mod-list">
+          <li>Heats Meibomian glands from within to clear blockages</li>
+          <li>Stimulates collagen &amp; elastin production in periorbital tissue</li>
+          <li>Improves eyelid laxity — a key structural MGD contributor</li>
+          <li>Enhances gland morphology and prevents progressive atrophy</li>
+          <li>Reaches temperatures conventional warm compresses cannot</li>
+          <li>Synergistic anti-inflammatory effects that amplify IPL results</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SYNERGY ══════════════ -->
+<section class="section">
+  <div class="synergy-intro">
+    <span class="label">The Combination Advantage</span>
+    <h2>Why Combined Therapy Changes <em>Everything</em></h2>
+    <p>IPL and RF work through complementary, non-overlapping mechanisms — attacking MGD from multiple biological angles simultaneously. The result is a compounding therapeutic effect no single treatment can replicate.</p>
+  </div>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="card-num">01</div>
+      <h4>Deeper, Sustained Relief</h4>
+      <p>IPL reduces periorbital inflammation while RF clears gland obstructions — together creating lasting tear film stability no eye drop can achieve.</p>
+    </div>
+
+    <div class="benefit-card">
+      <div class="card-num">02</div>
+      <h4>Gland Preservation</h4>
+      <p>MGD is progressive. Combination therapy doesn't just relieve symptoms — it halts gland atrophy and actively restores secretory function long-term.</p>
+    </div>
+
+    <div class="benefit-card">
+      <div class="card-num">03</div>
+      <h4>Multi-Pathway Inflammation Control</h4>
+      <p>Inflammatory cytokines, Demodex colonization, vascular hyperpermeability, and gland obstruction are all addressed in one elegant protocol.</p>
+    </div>
+
+    <div class="benefit-card">
+      <div class="card-num">04</div>
+      <h4>No Downtime, No Drugs</h4>
+      <p>Both modalities are non-invasive, in-office treatments completed in under 30 minutes. No recovery period, no systemic medication side effects.</p>
+    </div>
+
+    <div class="benefit-card">
+      <div class="card-num">05</div>
+      <h4>Results That Compound Over Time</h4>
+      <p>Collagen remodeling, reduced inflammation, and restored gland function continue improving between sessions — not just during treatment.</p>
+    </div>
+
+    <div class="benefit-card">
+      <div class="card-num">06</div>
+      <h4>Superior to Either Alone</h4>
+      <p>Peer-reviewed studies confirm that combined IPL + RF therapy produces superior improvement in meibomian gland score, lipid layer thickness, and symptom burden vs. monotherapy.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ COMPARISON ══════════════ -->
+<section class="section section--darker">
+  <div class="container">
+    <div class="center">
+      <span class="label">Why It's Different</span>
+      <h2>Not All Dry Eye Treatments <em>Are Equal</em></h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Treatment Capability</th>
+            <th>Conventional Treatments</th>
+            <th>✦ OptiLight IPL + RF Combo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Treats root cause (MGD)</td>
+            <td><span class="cx">✗</span></td>
+            <td><span class="ck">✓</span> Directly addresses gland pathology</td>
+          </tr>
+          <tr>
+            <td>Reduces eyelid inflammation</td>
+            <td><span class="cx">✗</span></td>
+            <td><span class="ck">✓</span> IPL targets inflammatory cascade</td>
+          </tr>
+          <tr>
+            <td>Clears gland blockages</td>
+            <td><span class="cx">✗</span> Warm compresses rarely reach therapeutic temp</td>
+            <td><span class="ck">✓</span> RF delivers precise therapeutic heat</td>
+          </tr>
+          <tr>
+            <td>Preserves gland morphology</td>
+            <td><span class="cx">✗</span></td>
+            <td><span class="ck">✓</span> Halts progressive gland atrophy</td>
+          </tr>
+          <tr>
+            <td>FDA-approved indication</td>
+            <td><span class="cx">✗</span> Eye drops have no FDA dry eye approval</td>
+            <td><span class="ck">✓</span> First FDA-approved IPL for dry eye</td>
+          </tr>
+          <tr>
+            <td>Duration of results</td>
+            <td><span class="cx">Temporary — hours to days</span></td>
+            <td><span class="ck">✓</span> Months to years with maintenance</td>
+          </tr>
+          <tr>
+            <td>Drug-free therapy</td>
+            <td><span class="cx">✗</span> Cyclosporine, lifitegrast carry systemic effects</td>
+            <td><span class="ck">✓</span> 100% non-pharmacologic</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CANDIDATE ══════════════ -->
+<section class="section">
+  <div class="container">
+    <span class="label">Is This Right for You?</span>
+    <h2>You May Be an Ideal Candidate If You…</h2>
+
+    <div class="candidate-grid">
+      <div class="eye-visual">
+        <div class="eye-ring">
+          <div class="orbit"></div>
+        </div>
+      </div>
+
+      <div class="candidate-list">
+        <div class="c-item">
+          <div class="c-icon">🔁</div>
+          <div>
+            <h5>Rely Constantly on Artificial Tears</h5>
+            <p>Using drops multiple times daily with only fleeting relief — your eyes need a structural fix, not more surface lubrication.</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">💊</div>
+          <div>
+            <h5>Have Not Responded to Prescription Drops</h5>
+            <p>Cyclosporine or lifitegrast didn't work or caused intolerable side effects. IPL + RF addresses the pathology those drugs can't reach.</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📱</div>
+          <div>
+            <h5>Experience Digital Eye Strain</h5>
+            <p>Heavy screen use dramatically reduces blink rate, accelerating MGD. This protocol resets the entire cycle.</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🔬</div>
+          <div>
+            <h5>Have Been Diagnosed with MGD</h5>
+            <p>If meibography or meibum quality testing has confirmed Meibomian Gland Dysfunction, you are an excellent candidate.</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">👓</div>
+          <div>
+            <h5>Wear Contacts or Have Had LASIK</h5>
+            <p>Both accelerate MGD. Restoring gland function dramatically improves contact lens comfort and maintains LASIK outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROCESS ══════════════ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="center">
+      <span class="label">Your Treatment Journey</span>
+      <h2>What to Expect at <em>Dry Eye Center of NC</em></h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-circle">1</div>
+        <h4>Comprehensive Assessment</h4>
+        <p>Advanced diagnostics including meibography imaging, LipiView tear film analysis, and OSDI symptom scoring to characterize your disease precisely.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle">2</div>
+        <h4>Personalized Protocol</h4>
+        <p>IPL fluence, RF energy, and session frequency calibrated to your specific gland anatomy, skin type, and disease severity.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle">3</div>
+        <h4>In-Office Treatment</h4>
+        <p>Comfortable 20–30 minute sessions combining OptiLight IPL followed by RF therapy. Most patients complete 4 sessions over 3–4 months.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle">4</div>
+        <h4>Ongoing Care</h4>
+        <p>Follow-up meibography confirms gland improvement. A personalized maintenance schedule protects your results and prevents long-term progression.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHY US ══════════════ -->
+<section class="section" style="border-top:1px solid rgba(201,168,76,0.14);border-bottom:1px solid rgba(201,168,76,0.14);">
+  <div class="why-grid">
+    <div class="why-content">
+      <span class="label">Dry Eye Center of NC</span>
+      <h2>North Carolina's <em>Premier</em> Destination for Advanced Dry Eye Care</h2>
+      <p>We are a dedicated dry eye subspecialty practice — not a general optometry office that treats dry eye on the side. Every diagnostic tool and treatment modality exists for one singular purpose: eliminating chronic dry eye disease.</p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-ico">🔬</div>
+          <div>
+            <strong>Subspecialty Expertise</strong>
+            <p>Our clinicians have dedicated their practice exclusively to the diagnosis and management of ocular surface disease.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-ico">🏥</div>
+          <div>
+            <strong>State-of-the-Art Technology</strong>
+            <p>Lumenis OptiLight, advanced meibography, and tear film imaging — we invest in the technology your eyes deserve.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-ico">🤝</div>
+          <div>
+            <strong>Evidence-Based, Patient-Centered</strong>
+            <p>Every treatment decision is grounded in peer-reviewed clinical evidence and tailored to your unique ocular biology.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="awards">
+      <div class="award">
+        <span class="award-ico">🏆</span>
+        <strong>Lumenis OptiLight Certified Center</strong>
+        <p>One of a select network of practices certified in the OptiLight IPL protocol for dry eye disease</p>
+      </div>
+      <div class="award">
+        <span class="award-ico">🎓</span>
+        <strong>Advanced Dry Eye Subspecialty Practice</strong>
+        <p>Dedicated exclusively to ocular surface disease — your dry eye care is never an afterthought here</p>
+      </div>
+      <div class="award">
+        <span class="award-ico">📊</span>
+        <strong>Outcomes-Driven Protocol</strong>
+        <p>We track objective measures before, during, and after treatment so you can see your improvement clearly</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONIAL ══════════════ -->
+<section class="section center">
+  <div class="container">
+    <div class="testimonial-wrap">
+      <blockquote>
+        "I had tried every drop on the market and was told I just had to 'live with it.' After completing the IPL and RF protocol at Dry Eye Center of NC, I wake up comfortable for the first time in years. This wasn't just treatment — it was life-changing."
+      </blockquote>
+      <cite>— Patient, Dry Eye Center of NC</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="cta-section" id="cta">
+  <span class="label">Begin Your Journey</span>
+  <h2>Stop Managing.<br><em>Start Healing.</em></h2>
+  <p>Chronic dry eye is a treatable disease. Take the first step toward lasting relief with the most advanced combination therapy available — right here in North Carolina.</p>
+
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">Book Your Dry Eye Assessment</a>
+    <a href="tel:+1" class="btn-ghost">Call Our Office</a>
+  </div>
+  <p class="cta-note">Most patients notice meaningful improvement after their first 1–2 sessions.</p>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-brand">Dry Eye Center <span>of NC</span></div>
+  <p>Advanced Dry Eye Disease · OptiLight IPL + Radiofrequency Combination Therapy</p>
+  <p class="footer-copy">© 2025 Dry Eye Center of NC · All rights reserved</p>
+</footer>
+
+</body>
+</html>
